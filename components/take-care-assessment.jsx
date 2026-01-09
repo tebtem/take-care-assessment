@@ -654,7 +654,7 @@ const TakeCareAssessment = () => {
             min-height: 100vh;
             padding: 60px 40px;
             box-sizing: border-box;
-            background: ${BRAND_COLORS.sky};
+            background: ${BRAND_COLORS.cloud};
             font-family: system-ui, -apple-system, sans-serif;
             position: relative;
           }
@@ -682,7 +682,7 @@ const TakeCareAssessment = () => {
             maxWidth: '600px',
             margin: '0 auto 30px'
           }}>
-            Your personalized Take Care Profile is complete! You can download it as a PDF.
+            Your personalized Take Care Profile is complete! You can download it as a PDF or keep scrolling below.
           </p>
           
           <button
@@ -746,10 +746,6 @@ const TakeCareAssessment = () => {
           </div>
           
           <div style={{ 
-            width: '100px',
-            height: '100px',
-            borderRadius: '50%',
-            background: BRAND_COLORS.sand,
             margin: '0 auto 40px',
             display: 'flex',
             alignItems: 'center',
@@ -759,7 +755,7 @@ const TakeCareAssessment = () => {
               src="/logo.png" 
               alt="Inner Workout" 
               style={{ 
-                height: '50px'
+                height: '80px'
               }}
             />
           </div>
