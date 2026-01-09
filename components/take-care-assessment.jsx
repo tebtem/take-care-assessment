@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { PRACTICES } from './practices-database';
 
+// Brand Colors from color palette
+const BRAND_COLORS = {
+  cloud: '#F2EBD7',    // Cream background
+  shadow: '#1A1A1A',   // Black text
+  sand: '#DFA36D',     // Tan accent
+  goldenrod: '#F1B452', // Yellow accent
+  clay: '#CB6B4D',     // Terra cotta accent
+  sage: '#ACB884',     // Sage green
+  sky: '#CAE2EF'       // Light blue
+};
+
 const QUESTIONS = [
   // Physical Dimension - Embodiment
   { id: 1, dimension: "Physical", subdimension: "Embodiment", text: "I feel disconnected from my body", reverse_scored: true },
@@ -249,7 +260,8 @@ const TakeCareAssessment = () => {
         subdimension: highest.name,
         dimension: highest.dimension,
         score: highest.score,
-        practice: PRACTICES[highest.name]?.highest
+        practice: PRACTICES[highest.name]?.highest,
+        lowestPractice: randomPractice(PRACTICES[highest.name]?.lowest || [])
       },
       lowest: [
         {
@@ -459,7 +471,7 @@ const TakeCareAssessment = () => {
           fontSize: '14px',
           color: '#6b7280'
         }}>
-          Copyright ©2020-2023 Inner Workout. All rights reserved.
+          innerworkout.co | taylorelyse.com
         </p>
       </div>
     );
@@ -642,32 +654,69 @@ const TakeCareAssessment = () => {
             min-height: 100vh;
             padding: 60px 40px;
             box-sizing: border-box;
-            background: #a8dadc;
+            background: ${BRAND_COLORS.sky};
             font-family: system-ui, -apple-system, sans-serif;
             position: relative;
           }
           
           .cream-page {
-            background: #F2EBD7;
-          }
-          
-          .page-footer {
-            position: absolute;
-            bottom: 40px;
-            left: 40px;
-            font-size: 14px;
-            color: #1A1A1A;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            background: ${BRAND_COLORS.cloud};
           }
         `}} />
+        
+        {/* Download Section - NOW AT TOP (no-print) */}
+        <div className="profile-page no-print" style={{ textAlign: 'center', minHeight: 'auto', paddingTop: '80px', paddingBottom: '80px' }}>
+          <h2 style={{ 
+            fontSize: '36px',
+            marginBottom: '30px',
+            color: BRAND_COLORS.shadow
+          }}>
+            🎉 Your Profile is Ready!
+          </h2>
+          
+          <p style={{ 
+            fontSize: '18px',
+            lineHeight: '1.6',
+            color: BRAND_COLORS.shadow,
+            marginBottom: '30px',
+            maxWidth: '600px',
+            margin: '0 auto 30px'
+          }}>
+            Your personalized Take Care Profile is complete! You can download it as a PDF.
+          </p>
+          
+          <button
+            onClick={handlePrint}
+            style={{
+              padding: '16px 40px',
+              fontSize: '18px',
+              fontWeight: '600',
+              color: 'white',
+              background: BRAND_COLORS.clay,
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              marginBottom: '40px',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+            }}
+          >
+            📄 Download as PDF
+          </button>
+          
+          <p style={{ 
+            fontSize: '14px',
+            color: '#6b7280'
+          }}>
+            innerworkout.co | taylorelyse.com
+          </p>
+        </div>
         
         {/* Cover Page */}
         <div className="profile-page page-break" style={{ textAlign: 'center' }}>
           <h1 style={{ 
             fontSize: '48px', 
             marginBottom: '20px',
-            color: '#1A1A1A',
+            color: BRAND_COLORS.shadow,
             fontWeight: 'bold'
           }}>
             Your Take Care Profile
@@ -676,7 +725,7 @@ const TakeCareAssessment = () => {
           <p style={{ 
             fontSize: '20px', 
             marginBottom: '80px',
-            color: '#1A1A1A'
+            color: BRAND_COLORS.shadow
           }}>
             An Inner Workout Assessment
           </p>
@@ -685,7 +734,7 @@ const TakeCareAssessment = () => {
             fontSize: '18px', 
             lineHeight: '2',
             marginBottom: '60px',
-            color: '#1A1A1A'
+            color: BRAND_COLORS.shadow
           }}>
             <p style={{ marginBottom: '10px' }}>{firstName}</p>
             <p style={{ marginBottom: '10px' }}>Assessment Completed:</p>
@@ -700,7 +749,7 @@ const TakeCareAssessment = () => {
             width: '100px',
             height: '100px',
             borderRadius: '50%',
-            background: '#DFA36D',
+            background: BRAND_COLORS.sand,
             margin: '0 auto 40px',
             display: 'flex',
             alignItems: 'center',
@@ -710,18 +759,17 @@ const TakeCareAssessment = () => {
               src="/logo.png" 
               alt="Inner Workout" 
               style={{ 
-                height: '50px',
-                filter: 'brightness(0) invert(1)'
+                height: '50px'
               }}
             />
           </div>
           
           <p style={{ 
             fontSize: '16px',
-            color: '#1A1A1A',
+            color: BRAND_COLORS.shadow,
             fontWeight: '500'
           }}>
-            innerworkout.co
+            innerworkout.co | taylorelyse.com
           </p>
         </div>
         
@@ -730,7 +778,7 @@ const TakeCareAssessment = () => {
           <h2 style={{ 
             fontSize: '36px', 
             marginBottom: '40px',
-            color: '#1A1A1A',
+            color: BRAND_COLORS.shadow,
             textAlign: 'center'
           }}>
             Your Results
@@ -745,11 +793,11 @@ const TakeCareAssessment = () => {
                   alignItems: 'center',
                   marginBottom: '15px',
                   paddingBottom: '10px',
-                  borderBottom: '2px solid #CB6B4D'
+                  borderBottom: `2px solid ${BRAND_COLORS.clay}`
                 }}>
                   <h3 style={{ 
                     fontSize: '24px',
-                    color: '#1A1A1A',
+                    color: BRAND_COLORS.shadow,
                     fontWeight: 'bold',
                     margin: 0
                   }}>
@@ -757,7 +805,7 @@ const TakeCareAssessment = () => {
                   </h3>
                   <span style={{ 
                     fontSize: '28px',
-                    color: '#CB6B4D',
+                    color: BRAND_COLORS.clay,
                     fontWeight: 'bold'
                   }}>
                     {scores[dimension].overall}%
@@ -771,14 +819,14 @@ const TakeCareAssessment = () => {
                       display: 'flex',
                       justifyContent: 'space-between',
                       padding: '8px 0 8px 20px',
-                      color: '#1A1A1A'
+                      color: BRAND_COLORS.shadow
                     }}
                   >
                     <span style={{ fontSize: '16px' }}>{subdim}</span>
                     <span style={{ 
                       fontSize: '18px',
                       fontWeight: '600',
-                      color: '#DFA36D'
+                      color: BRAND_COLORS.sand
                     }}>
                       {scores[dimension].subdimensions[subdim]}%
                     </span>
@@ -787,22 +835,20 @@ const TakeCareAssessment = () => {
               </div>
             ))}
           </div>
-          
-          <div className="page-footer">{firstName.toUpperCase()}</div>
         </div>
         
-        {/* Highest Practice Page */}
+        {/* Highest Practice Page - WITH ACTUAL PRACTICE */}
         <div className="profile-page cream-page page-break">
           <div style={{ 
-            borderTop: '3px solid #1A1A1A',
-            borderBottom: '3px solid #1A1A1A',
+            borderTop: `3px solid ${BRAND_COLORS.shadow}`,
+            borderBottom: `3px solid ${BRAND_COLORS.shadow}`,
             padding: '20px 0',
             marginBottom: '40px',
             textAlign: 'center'
           }}>
             <h2 style={{ 
               fontSize: '32px',
-              color: '#1A1A1A',
+              color: BRAND_COLORS.shadow,
               margin: 0
             }}>
               You already take care by...
@@ -813,21 +859,22 @@ const TakeCareAssessment = () => {
             <p style={{ 
               fontSize: '20px',
               lineHeight: '1.8',
-              color: '#1A1A1A',
+              color: BRAND_COLORS.shadow,
               marginBottom: '40px'
             }}>
               {selectedPractices.highest.practice?.message}
             </p>
             
             <div style={{
-              background: 'rgba(203, 107, 77, 0.1)',
+              background: `rgba(203, 107, 77, 0.1)`,
               padding: '20px',
               borderRadius: '8px',
-              borderLeft: '4px solid #CB6B4D'
+              borderLeft: `4px solid ${BRAND_COLORS.clay}`,
+              marginBottom: '40px'
             }}>
               <p style={{ 
                 fontSize: '16px',
-                color: '#1A1A1A',
+                color: BRAND_COLORS.shadow,
                 fontWeight: '600',
                 marginBottom: '8px'
               }}>
@@ -835,29 +882,84 @@ const TakeCareAssessment = () => {
               </p>
               <p style={{ 
                 fontSize: '18px',
-                color: '#1A1A1A'
+                color: BRAND_COLORS.shadow
               }}>
                 {selectedPractices.highest.subdimension} ({selectedPractices.highest.score}%)
               </p>
             </div>
+            
+            {/* NOW INCLUDING A PRACTICE FOR THE HIGHEST DIMENSION */}
+            {selectedPractices.highest.lowestPractice && (
+              <>
+                <h3 style={{ 
+                  fontSize: '28px',
+                  color: BRAND_COLORS.clay,
+                  marginBottom: '15px',
+                  fontWeight: 'bold'
+                }}>
+                  {selectedPractices.highest.lowestPractice.type} - {selectedPractices.highest.lowestPractice.title}
+                </h3>
+                
+                <div style={{ marginBottom: '30px' }}>
+                  {selectedPractices.highest.lowestPractice.instructions.map((instruction, i) => (
+                    <p key={i} style={{ 
+                      fontSize: '16px',
+                      lineHeight: '1.7',
+                      color: BRAND_COLORS.shadow,
+                      marginBottom: '12px',
+                      paddingLeft: instruction.startsWith('-') ? '20px' : '0'
+                    }}>
+                      {instruction}
+                    </p>
+                  ))}
+                </div>
+                
+                {selectedPractices.highest.lowestPractice.reflection && selectedPractices.highest.lowestPractice.reflection.length > 0 && (
+                  <div style={{
+                    background: `rgba(223, 163, 109, 0.2)`,
+                    padding: '20px',
+                    borderRadius: '8px',
+                    borderLeft: `4px solid ${BRAND_COLORS.sand}`
+                  }}>
+                    <h4 style={{ 
+                      fontSize: '20px',
+                      color: BRAND_COLORS.shadow,
+                      marginBottom: '15px',
+                      fontWeight: 'bold'
+                    }}>
+                      Get Introspective
+                    </h4>
+                    {selectedPractices.highest.lowestPractice.reflection.map((question, i) => (
+                      <p key={i} style={{ 
+                        fontSize: '16px',
+                        lineHeight: '1.7',
+                        color: BRAND_COLORS.shadow,
+                        marginBottom: '10px',
+                        fontStyle: 'italic'
+                      }}>
+                        {question}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
           </div>
-          
-          <div className="page-footer">{firstName.toUpperCase()}</div>
         </div>
         
         {/* Lowest Practice Pages */}
         {selectedPractices.lowest.map((practiceData, index) => (
           <div key={index} className="profile-page cream-page page-break">
             <div style={{ 
-              borderTop: '3px solid #1A1A1A',
-              borderBottom: '3px solid #1A1A1A',
+              borderTop: `3px solid ${BRAND_COLORS.shadow}`,
+              borderBottom: `3px solid ${BRAND_COLORS.shadow}`,
               padding: '20px 0',
               marginBottom: '40px',
               textAlign: 'center'
             }}>
               <h2 style={{ 
                 fontSize: '32px',
-                color: '#1A1A1A',
+                color: BRAND_COLORS.shadow,
                 margin: 0
               }}>
                 You can focus more on...
@@ -866,15 +968,15 @@ const TakeCareAssessment = () => {
             
             <div style={{ maxWidth: '700px', margin: '0 auto' }}>
               <div style={{
-                background: 'rgba(203, 107, 77, 0.1)',
+                background: `rgba(203, 107, 77, 0.1)`,
                 padding: '20px',
                 borderRadius: '8px',
-                borderLeft: '4px solid #CB6B4D',
+                borderLeft: `4px solid ${BRAND_COLORS.clay}`,
                 marginBottom: '30px'
               }}>
                 <p style={{ 
                   fontSize: '16px',
-                  color: '#1A1A1A',
+                  color: BRAND_COLORS.shadow,
                   fontWeight: '600',
                   marginBottom: '8px'
                 }}>
@@ -882,7 +984,7 @@ const TakeCareAssessment = () => {
                 </p>
                 <p style={{ 
                   fontSize: '18px',
-                  color: '#1A1A1A'
+                  color: BRAND_COLORS.shadow
                 }}>
                   {practiceData.subdimension} ({practiceData.score}%)
                 </p>
@@ -890,7 +992,7 @@ const TakeCareAssessment = () => {
               
               <h3 style={{ 
                 fontSize: '28px',
-                color: '#CB6B4D',
+                color: BRAND_COLORS.clay,
                 marginBottom: '15px',
                 fontWeight: 'bold'
               }}>
@@ -902,7 +1004,7 @@ const TakeCareAssessment = () => {
                   <p key={i} style={{ 
                     fontSize: '16px',
                     lineHeight: '1.7',
-                    color: '#1A1A1A',
+                    color: BRAND_COLORS.shadow,
                     marginBottom: '12px',
                     paddingLeft: instruction.startsWith('-') ? '20px' : '0'
                   }}>
@@ -913,14 +1015,14 @@ const TakeCareAssessment = () => {
               
               {practiceData.practice?.reflection && practiceData.practice.reflection.length > 0 && (
                 <div style={{
-                  background: 'rgba(223, 163, 109, 0.2)',
+                  background: `rgba(223, 163, 109, 0.2)`,
                   padding: '20px',
                   borderRadius: '8px',
-                  borderLeft: '4px solid #DFA36D'
+                  borderLeft: `4px solid ${BRAND_COLORS.sand}`
                 }}>
                   <h4 style={{ 
                     fontSize: '20px',
-                    color: '#1A1A1A',
+                    color: BRAND_COLORS.shadow,
                     marginBottom: '15px',
                     fontWeight: 'bold'
                   }}>
@@ -930,7 +1032,7 @@ const TakeCareAssessment = () => {
                     <p key={i} style={{ 
                       fontSize: '16px',
                       lineHeight: '1.7',
-                      color: '#1A1A1A',
+                      color: BRAND_COLORS.shadow,
                       marginBottom: '10px',
                       fontStyle: 'italic'
                     }}>
@@ -940,63 +1042,8 @@ const TakeCareAssessment = () => {
                 </div>
               )}
             </div>
-            
-            <div className="page-footer">{firstName.toUpperCase()}</div>
           </div>
         ))}
-        
-        {/* Final Page - Download/Email Confirmation */}
-        <div className="profile-page cream-page no-print">
-          <div style={{ 
-            maxWidth: '600px', 
-            margin: '0 auto',
-            textAlign: 'center'
-          }}>
-            <h2 style={{ 
-              fontSize: '36px',
-              marginBottom: '30px',
-              color: '#1A1A1A'
-            }}>
-              🎉 Your Profile is Ready!
-            </h2>
-            
-            <p style={{ 
-              fontSize: '18px',
-              lineHeight: '1.6',
-              color: '#1A1A1A',
-              marginBottom: '30px'
-            }}>
-              Your personalized Take Care Profile is complete! You can download it as a PDF 
-              or we'll email a copy to <strong>{email}</strong>.
-            </p>
-            
-            <button
-              onClick={handlePrint}
-              style={{
-                padding: '16px 40px',
-                fontSize: '18px',
-                fontWeight: '600',
-                color: 'white',
-                background: '#CB6B4D',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                marginBottom: '20px',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-              }}
-            >
-              📄 Download as PDF
-            </button>
-            
-            <p style={{ 
-              fontSize: '14px',
-              color: '#6b7280',
-              marginTop: '40px'
-            }}>
-              innerworkout.co | @innerworkout
-            </p>
-          </div>
-        </div>
       </>
     );
   }
