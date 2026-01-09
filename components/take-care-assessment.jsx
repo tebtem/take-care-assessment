@@ -346,47 +346,50 @@ const TakeCareAssessment = () => {
         </div>
         
         <div style={{ 
-          background: '#f8f9fa', 
+          background: BRAND_COLORS.cloud, 
           padding: '30px', 
           borderRadius: '12px',
-          marginBottom: '30px'
+          marginBottom: '30px',
+          border: `2px solid ${BRAND_COLORS.sand}`
         }}>
-          <h2 style={{ fontSize: '24px', marginBottom: '20px' }}>
+          <h2 style={{ fontSize: '24px', marginBottom: '20px', color: BRAND_COLORS.shadow }}>
             It's time to <em>Take Care</em>.
           </h2>
           
-          <p style={{ marginBottom: '15px', lineHeight: '1.6' }}>
+          <p style={{ marginBottom: '15px', lineHeight: '1.6', color: BRAND_COLORS.shadow }}>
             Our 75-question assessment gives you a snapshot of your current relationship to self-care, 
             and then it shares three personalized practices for you to try.
           </p>
           
           <p style={{ 
-            background: '#fff3cd', 
+            background: BRAND_COLORS.goldenrod, 
             padding: '15px', 
             borderRadius: '8px',
             marginBottom: '15px',
-            lineHeight: '1.6'
+            lineHeight: '1.6',
+            color: BRAND_COLORS.shadow
           }}>
             <strong>FYI:</strong> Our software requires you to complete the assessment in one sitting, 
             so we recommend setting aside at least 10 minutes.
           </p>
           
-          <p style={{ fontSize: '18px', fontWeight: '600' }}>
+          <p style={{ fontSize: '18px', fontWeight: '600', color: BRAND_COLORS.shadow }}>
             You ready?
           </p>
         </div>
         
         <form onSubmit={handleStartAssessment} style={{
-          background: '#fffbeb',
+          background: BRAND_COLORS.cloud,
           padding: '30px',
           borderRadius: '12px',
-          border: '2px solid #fbbf24'
+          border: `2px solid ${BRAND_COLORS.clay}`
         }}>
           <h3 style={{ 
             textAlign: 'center', 
             marginBottom: '20px',
             fontSize: '18px',
-            fontWeight: '600'
+            fontWeight: '600',
+            color: BRAND_COLORS.shadow
           }}>
             Contact Information
           </h3>
@@ -395,7 +398,8 @@ const TakeCareAssessment = () => {
             <label style={{ 
               display: 'block', 
               marginBottom: '8px',
-              fontWeight: '500'
+              fontWeight: '500',
+              color: BRAND_COLORS.shadow
             }}>
               First Name
             </label>
@@ -408,7 +412,7 @@ const TakeCareAssessment = () => {
                 width: '100%',
                 padding: '12px',
                 fontSize: '16px',
-                border: '1px solid #d1d5db',
+                border: `1px solid ${BRAND_COLORS.sage}`,
                 borderRadius: '6px',
                 boxSizing: 'border-box'
               }}
@@ -419,7 +423,8 @@ const TakeCareAssessment = () => {
             <label style={{ 
               display: 'block', 
               marginBottom: '8px',
-              fontWeight: '500'
+              fontWeight: '500',
+              color: BRAND_COLORS.shadow
             }}>
               Email Address
             </label>
@@ -432,7 +437,7 @@ const TakeCareAssessment = () => {
                 width: '100%',
                 padding: '12px',
                 fontSize: '16px',
-                border: '1px solid #d1d5db',
+                border: `1px solid ${BRAND_COLORS.sage}`,
                 borderRadius: '6px',
                 boxSizing: 'border-box'
               }}
@@ -448,7 +453,7 @@ const TakeCareAssessment = () => {
               fontSize: '16px',
               fontWeight: '600',
               color: 'white',
-              background: submitting ? '#9ca3af' : '#1e293b',
+              background: submitting ? BRAND_COLORS.sage : BRAND_COLORS.shadow,
               border: 'none',
               borderRadius: '6px',
               cursor: submitting ? 'not-allowed' : 'pointer',
@@ -458,10 +463,10 @@ const TakeCareAssessment = () => {
             {submitting ? 'STARTING...' : 'BEGIN ASSESSMENT →'}
           </button>
           
-          <p style={{ fontSize: '12px', lineHeight: '1.5', color: '#6b7280' }}>
+          <p style={{ fontSize: '12px', lineHeight: '1.5', color: BRAND_COLORS.shadow }}>
             We'll use your information to create your downloadable Take Care profile and deliver 
             ongoing communications from Taylor Elyse Morrison. By taking the assessment, you agree 
-            to our Terms of Service and Privacy Policy. You can unsubscribe at any time.
+            to our <a href="https://www.innerworkout.co/privacy-policy" target="_blank" rel="noopener noreferrer" style={{ color: BRAND_COLORS.clay, textDecoration: 'underline' }}>Privacy Policy</a>. You can unsubscribe at any time.
           </p>
         </form>
         
