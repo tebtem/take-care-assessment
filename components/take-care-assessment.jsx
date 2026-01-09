@@ -231,21 +231,29 @@ const TakeCareAssessment = () => {
     });
     
     // Calculate percentages
-    const scores = {};
+    const calculatedScores = {};
     Object.keys(results).forEach(dimension => {
-      scores[dimension] = {
+      calculatedScores[dimension] = {
         overall: calculateScore(results[dimension].overall),
         subdimensions: {}
       };
       
       Object.keys(results[dimension].subdimensions).forEach(subdimension => {
-        scores[dimension].subdimensions[subdimension] = 
+        calculatedScores[dimension].subdimensions[subdimension] = 
           calculateScore(results[dimension].subdimensions[subdimension]);
       });
     });
     
-    console.log('Assessment Results:', scores);
+    console.log('Assessment Results:', calculatedScores);
+    
+    // Store scores in state
+    window.assessmentScores = calculatedScores;
+    
     setStage('results');
+  };
+  
+  const handlePrint = () => {
+    window.print();
   };
   
   const progress = ((currentPage + 1) / totalPages) * 100;
@@ -256,7 +264,9 @@ const TakeCareAssessment = () => {
         maxWidth: '600px', 
         margin: '0 auto', 
         padding: '40px 20px',
-        fontFamily: 'system-ui, -apple-system, sans-serif'
+        fontFamily: 'system-ui, -apple-system, sans-serif',
+        background: '#F2EBD7',
+        minHeight: '100vh'
       }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <img 
@@ -271,47 +281,50 @@ const TakeCareAssessment = () => {
         </div>
         
         <div style={{ 
-          background: '#f8f9fa', 
+          background: 'white', 
           padding: '30px', 
           borderRadius: '12px',
-          marginBottom: '30px'
+          marginBottom: '30px',
+          boxShadow: '0 2px 8px rgba(26, 26, 26, 0.1)'
         }}>
-          <h2 style={{ fontSize: '24px', marginBottom: '20px' }}>
+          <h2 style={{ fontSize: '24px', marginBottom: '20px', color: '#1A1A1A' }}>
             It's time to <em>Take Care</em>.
           </h2>
           
-          <p style={{ marginBottom: '15px', lineHeight: '1.6' }}>
+          <p style={{ marginBottom: '15px', lineHeight: '1.6', color: '#1A1A1A' }}>
             Our 75-question assessment gives you a snapshot of your current relationship to self-care, 
             and then it shares three personalized practices for you to try.
           </p>
           
           <p style={{ 
-            background: '#fff3cd', 
+            background: '#CAE2EF', 
             padding: '15px', 
             borderRadius: '8px',
             marginBottom: '15px',
-            lineHeight: '1.6'
+            lineHeight: '1.6',
+            color: '#1A1A1A'
           }}>
             <strong>FYI:</strong> Our software requires you to complete the assessment in one sitting, 
             so we recommend setting aside at least 10 minutes.
           </p>
           
-          <p style={{ fontSize: '18px', fontWeight: '600' }}>
+          <p style={{ fontSize: '18px', fontWeight: '600', color: '#1A1A1A' }}>
             You ready?
           </p>
         </div>
         
         <form onSubmit={handleStartAssessment} style={{
-          background: '#fffbeb',
+          background: 'white',
           padding: '30px',
           borderRadius: '12px',
-          border: '2px solid #fbbf24'
+          boxShadow: '0 2px 8px rgba(26, 26, 26, 0.1)'
         }}>
           <h3 style={{ 
             textAlign: 'center', 
             marginBottom: '20px',
             fontSize: '18px',
-            fontWeight: '600'
+            fontWeight: '600',
+            color: '#1A1A1A'
           }}>
             Contact Information
           </h3>
@@ -320,7 +333,8 @@ const TakeCareAssessment = () => {
             <label style={{ 
               display: 'block', 
               marginBottom: '8px',
-              fontWeight: '500'
+              fontWeight: '500',
+              color: '#1A1A1A'
             }}>
               First Name
             </label>
@@ -333,9 +347,10 @@ const TakeCareAssessment = () => {
                 width: '100%',
                 padding: '12px',
                 fontSize: '16px',
-                border: '1px solid #d1d5db',
+                border: '2px solid #DFA36D',
                 borderRadius: '6px',
-                boxSizing: 'border-box'
+                boxSizing: 'border-box',
+                color: '#1A1A1A'
               }}
             />
           </div>
@@ -344,7 +359,8 @@ const TakeCareAssessment = () => {
             <label style={{ 
               display: 'block', 
               marginBottom: '8px',
-              fontWeight: '500'
+              fontWeight: '500',
+              color: '#1A1A1A'
             }}>
               Email Address
             </label>
@@ -357,9 +373,10 @@ const TakeCareAssessment = () => {
                 width: '100%',
                 padding: '12px',
                 fontSize: '16px',
-                border: '1px solid #d1d5db',
+                border: '2px solid #DFA36D',
                 borderRadius: '6px',
-                boxSizing: 'border-box'
+                boxSizing: 'border-box',
+                color: '#1A1A1A'
               }}
             />
           </div>
@@ -373,7 +390,7 @@ const TakeCareAssessment = () => {
               fontSize: '16px',
               fontWeight: '600',
               color: 'white',
-              background: submitting ? '#9ca3af' : '#1e293b',
+              background: submitting ? '#ACB884' : '#CB6B4D',
               border: 'none',
               borderRadius: '6px',
               cursor: submitting ? 'not-allowed' : 'pointer',
@@ -383,10 +400,10 @@ const TakeCareAssessment = () => {
             {submitting ? 'STARTING...' : 'BEGIN ASSESSMENT →'}
           </button>
           
-          <p style={{ fontSize: '12px', lineHeight: '1.5', color: '#6b7280' }}>
+          <p style={{ fontSize: '12px', lineHeight: '1.5', color: '#1A1A1A' }}>
             We'll use your information to create your downloadable Take Care profile and deliver 
             ongoing communications from Taylor Elyse Morrison. By taking the assessment, you agree 
-            to our Terms of Service and Privacy Policy. You can unsubscribe at any time.
+            to our <a href="https://www.innerworkout.co/privacy-policy" target="_blank" rel="noopener noreferrer" style={{ color: '#CB6B4D', textDecoration: 'underline' }}>Privacy Policy</a>. You can unsubscribe at any time.
           </p>
         </form>
         
@@ -394,7 +411,7 @@ const TakeCareAssessment = () => {
           textAlign: 'center', 
           marginTop: '30px',
           fontSize: '14px',
-          color: '#6b7280'
+          color: '#1A1A1A'
         }}>
           Copyright ©2020-2023 Inner Workout. All rights reserved.
         </p>
@@ -410,7 +427,9 @@ const TakeCareAssessment = () => {
         maxWidth: '800px', 
         margin: '0 auto', 
         padding: '40px 20px',
-        fontFamily: 'system-ui, -apple-system, sans-serif'
+        fontFamily: 'system-ui, -apple-system, sans-serif',
+        background: '#F2EBD7',
+        minHeight: '100vh'
       }}>
         <div style={{ textAlign: 'center', marginBottom: '30px' }}>
           <img 
@@ -430,52 +449,55 @@ const TakeCareAssessment = () => {
             justifyContent: 'space-between',
             marginBottom: '8px',
             fontSize: '14px',
-            color: '#6b7280'
+            color: '#1A1A1A'
           }}>
             <span>Page {currentPage + 1} of {totalPages}</span>
             <span>{Math.round(progress)}% Complete</span>
           </div>
           <div style={{
             height: '8px',
-            background: '#e5e7eb',
+            background: 'white',
             borderRadius: '4px',
             overflow: 'hidden'
           }}>
             <div style={{
               height: '100%',
               width: `${progress}%`,
-              background: 'linear-gradient(90deg, #a8dadc 0%, #457b9d 100%)',
+              background: '#DFA36D',
               transition: 'width 0.3s ease'
             }}></div>
           </div>
         </div>
         
         <div style={{
-          background: '#fffbeb',
+          background: 'white',
           padding: '30px',
           borderRadius: '12px',
-          marginBottom: '30px'
+          marginBottom: '30px',
+          boxShadow: '0 2px 8px rgba(26, 26, 26, 0.1)'
         }}>
           <h2 style={{ 
             textAlign: 'center',
             marginBottom: '30px',
-            fontSize: '20px'
+            fontSize: '20px',
+            color: '#1A1A1A'
           }}>
             Rate your level of agreement with the following statements:
           </h2>
           
           {currentQuestions.map((question, index) => (
             <div key={question.id} style={{
-              background: 'white',
+              background: '#F2EBD7',
               padding: '20px',
               borderRadius: '8px',
               marginBottom: index < currentQuestions.length - 1 ? '20px' : '0',
-              border: '1px solid #e5e7eb'
+              border: '2px solid #DFA36D'
             }}>
               <p style={{ 
                 marginBottom: '15px',
                 fontSize: '16px',
-                fontWeight: '500'
+                fontWeight: '500',
+                color: '#1A1A1A'
               }}>
                 {question.text}
               </p>
@@ -490,8 +512,9 @@ const TakeCareAssessment = () => {
                     cursor: 'pointer',
                     borderRadius: '6px',
                     border: '2px solid',
-                    borderColor: answers[question.id] === option ? '#457b9d' : '#e5e7eb',
-                    background: answers[question.id] === option ? '#f0f9ff' : 'white'
+                    borderColor: answers[question.id] === option ? '#CB6B4D' : '#ACB884',
+                    background: answers[question.id] === option ? '#CAE2EF' : 'white',
+                    color: '#1A1A1A'
                   }}
                 >
                   <input
@@ -522,9 +545,9 @@ const TakeCareAssessment = () => {
               padding: '14px',
               fontSize: '16px',
               fontWeight: '600',
-              color: '#1e293b',
+              color: '#1A1A1A',
               background: 'white',
-              border: '2px solid #1e293b',
+              border: '2px solid #1A1A1A',
               borderRadius: '6px',
               cursor: currentPage === 0 ? 'not-allowed' : 'pointer',
               opacity: currentPage === 0 ? 0.5 : 1
@@ -541,7 +564,7 @@ const TakeCareAssessment = () => {
               fontSize: '16px',
               fontWeight: '600',
               color: 'white',
-              background: '#1e293b',
+              background: '#CB6B4D',
               border: 'none',
               borderRadius: '6px',
               cursor: 'pointer'
@@ -555,14 +578,25 @@ const TakeCareAssessment = () => {
   }
   
   if (stage === 'results') {
+    const scores = window.assessmentScores || {};
+    
     return (
       <div style={{ 
         maxWidth: '800px', 
         margin: '0 auto', 
         padding: '40px 20px',
         fontFamily: 'system-ui, -apple-system, sans-serif',
-        textAlign: 'center'
+        background: '#F2EBD7',
+        minHeight: '100vh'
       }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          @media print {
+            button { display: none !important; }
+            body { background: white !important; }
+            @page { margin: 1in; }
+          }
+        `}} />
+        
         <img 
           src="/logo.png" 
           alt="Inner Workout" 
@@ -573,24 +607,25 @@ const TakeCareAssessment = () => {
           }}
         />
         
-        <h1 style={{ fontSize: '36px', marginBottom: '20px' }}>
+        <h1 style={{ fontSize: '36px', marginBottom: '10px', textAlign: 'center', color: '#1A1A1A' }}>
           Your Take Care Profile
         </h1>
         
-        <p style={{ fontSize: '18px', marginBottom: '30px', color: '#6b7280' }}>
+        <p style={{ fontSize: '18px', marginBottom: '30px', color: '#1A1A1A', textAlign: 'center' }}>
           An Inner Workout Assessment
         </p>
         
         <div style={{
-          background: '#f0f9ff',
+          background: '#CAE2EF',
           padding: '30px',
           borderRadius: '12px',
-          marginBottom: '30px'
+          marginBottom: '30px',
+          textAlign: 'center'
         }}>
-          <p style={{ fontSize: '18px', marginBottom: '15px' }}>
+          <p style={{ fontSize: '20px', marginBottom: '10px', color: '#1A1A1A' }}>
             <strong>{firstName}</strong>
           </p>
-          <p style={{ color: '#6b7280' }}>
+          <p style={{ color: '#1A1A1A' }}>
             Assessment Completed: {new Date().toLocaleDateString('en-US', { 
               year: 'numeric', 
               month: 'long', 
@@ -600,27 +635,121 @@ const TakeCareAssessment = () => {
         </div>
         
         <div style={{
-          background: '#dcfce7',
+          background: 'white',
           padding: '30px',
+          borderRadius: '12px',
+          marginBottom: '30px',
+          boxShadow: '0 2px 8px rgba(26, 26, 26, 0.1)'
+        }}>
+          <h2 style={{ fontSize: '24px', marginBottom: '25px', color: '#1A1A1A' }}>
+            Your Results
+          </h2>
+          
+          {Object.keys(scores).map(dimension => (
+            <div key={dimension} style={{ marginBottom: '30px' }}>
+              <div style={{
+                background: '#F2EBD7',
+                padding: '15px 20px',
+                borderRadius: '8px',
+                marginBottom: '15px',
+                borderLeft: '4px solid #CB6B4D'
+              }}>
+                <h3 style={{ 
+                  fontSize: '20px', 
+                  marginBottom: '5px',
+                  color: '#1A1A1A'
+                }}>
+                  {dimension}
+                </h3>
+                <p style={{ 
+                  fontSize: '32px', 
+                  fontWeight: '700',
+                  color: '#CB6B4D',
+                  margin: 0
+                }}>
+                  {scores[dimension].overall}%
+                </p>
+              </div>
+              
+              <div style={{ paddingLeft: '20px' }}>
+                {Object.keys(scores[dimension].subdimensions).map(subdimension => (
+                  <div key={subdimension} style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '12px 15px',
+                    marginBottom: '8px',
+                    background: '#F2EBD7',
+                    borderRadius: '6px',
+                    border: '1px solid #DFA36D'
+                  }}>
+                    <span style={{ fontSize: '16px', color: '#1A1A1A' }}>
+                      {subdimension}
+                    </span>
+                    <span style={{ 
+                      fontSize: '18px', 
+                      fontWeight: '600',
+                      color: '#CB6B4D'
+                    }}>
+                      {scores[dimension].subdimensions[subdimension]}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div style={{
+          background: '#ACB884',
+          padding: '25px',
           borderRadius: '12px',
           marginBottom: '30px'
         }}>
-          <h2 style={{ fontSize: '24px', marginBottom: '15px' }}>
+          <h2 style={{ fontSize: '20px', marginBottom: '15px', color: '#1A1A1A' }}>
             🎉 Assessment Complete!
           </h2>
-          <p style={{ fontSize: '16px', lineHeight: '1.6' }}>
-            Your personalized Take Care Profile will be emailed to you at <strong>{email}</strong> shortly.
+          <p style={{ fontSize: '16px', lineHeight: '1.6', marginBottom: '10px', color: '#1A1A1A' }}>
+            Your results are displayed above. You can download this page as a PDF using the button below.
           </p>
-          <p style={{ fontSize: '16px', lineHeight: '1.6', marginTop: '15px' }}>
-            Check your inbox for your detailed results, including your scores across all five dimensions 
-            and three personalized practices to enhance your self-care journey.
+          <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#1A1A1A' }}>
+            Your results have also been saved and will be emailed to <strong>{email}</strong> shortly with personalized practices.
+          </p>
+        </div>
+        
+        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+          <button
+            onClick={handlePrint}
+            style={{
+              padding: '15px 40px',
+              fontSize: '18px',
+              fontWeight: '600',
+              color: 'white',
+              background: '#CB6B4D',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+            }}
+            onMouseOver={(e) => e.target.style.background = '#1A1A1A'}
+            onMouseOut={(e) => e.target.style.background = '#CB6B4D'}
+          >
+            📄 Download as PDF
+          </button>
+          <p style={{ 
+            fontSize: '14px', 
+            color: '#1A1A1A',
+            marginTop: '15px'
+          }}>
+            Click the button above, then choose "Save as PDF" in the print dialog
           </p>
         </div>
         
         <p style={{ 
           fontSize: '14px',
-          color: '#6b7280',
-          marginTop: '30px'
+          color: '#1A1A1A',
+          marginTop: '30px',
+          textAlign: 'center'
         }}>
           innerworkout.co | @innerworkout
         </p>
